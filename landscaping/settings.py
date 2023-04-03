@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q^7-*z+^d#ip&e3f%b_r%+$3#acx*3a(w#17u_r7nwgudk&f%y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.b-rian.com', '.sill.one']
 
 
 # Application definition
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'landscaping.urls'
@@ -123,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/b-rian.com/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -131,7 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173",]
+CORS_ALLOWED_ORIGINS = ["https://www.sill.one", "https://sill.one"]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_HTTPONLY = False
 
@@ -142,3 +144,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'azizlandscapesbot@gmail.com'
 EMAIL_HOST_PASSWORD = 'scvpstxpqbaxcqcm'
 EMAIL_USE_TLS = True
+
+SECURE_HSTS_SECONDS = 30  # Unit is seconds; *USE A SMALL VALUE FOR TESTING!*
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+CSP_STYLE_SRC = ["'self'", 'sill.one', 'www.sill.one']
